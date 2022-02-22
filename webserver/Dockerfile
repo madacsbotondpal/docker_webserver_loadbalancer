@@ -16,4 +16,4 @@ RUN chmod +x /home/user/iptables.sh && \
 
 USER user
 
-ENTRYPOINT /home/user/entrypoint.sh
+ENTRYPOINT ["/home/user/entrypoint.sh"]

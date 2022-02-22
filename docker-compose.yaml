@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  loadbalancer:
+    container_name: loadbalancer-1
+    image: centosloadbalancer:1.0
+    command: 
+     - "webserver-1"
+     - "webserver-2"
+    ports:
+     - "80:80"
+    networks:
+      br1:
+        ipv4_address: "${LB_ADDRESS}"
+  webserver-1:
+    container_name: webserver-1
+    image: centoswebserver:1.0
+    cap_add:
+     - "NET_ADMIN"
+    command:
+     - "${LB_ADDRESS}"
+    networks:
+     -  br1
+  webserver-2:
+    container_name: webserver-2
+    image: centoswebserver:1.0
+    cap_add:
+     - "NET_ADMIN"
+    command:
+     - "${LB_ADDRESS}"
+    networks:
+     -  br1
+networks:
+  br1:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.172.0.0/16
+         gateway: 192.172.0.1

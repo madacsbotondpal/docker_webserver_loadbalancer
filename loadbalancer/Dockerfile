@@ -9,4 +9,4 @@ RUN touch /etc/httpd/conf.d/proxy.conf         && \
 
 USER user
 
-ENTRYPOINT /home/user/entrypoint.sh
+ENTRYPOINT ["/home/user/entrypoint.sh"]
